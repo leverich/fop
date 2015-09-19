@@ -1,0 +1,18 @@
+fop - call posix_fadvise on files
+
+Usage: fop [-a|--advice <advice|#>] [-d|--dump] [-s|--sync]
+           [-v|--verbose] [-L|--links] [-R|--recursive]
+           <file> ..
+
+  -d is equivalent to -a POSIX_FADV_DONTNEED.
+  See posix_fadvise(2) for advice names and numbers.
+
+This tool can be used to drop files from the OS's buffer cache, which
+allows you do perform reliable benchmarks using data read from
+disk. It is a more surgical alternative to Linux's:
+
+  echo 3 > /proc/sys/vm/drop_caches
+
+Typical usage is:
+
+  fop -dR <directory_to_dump>
